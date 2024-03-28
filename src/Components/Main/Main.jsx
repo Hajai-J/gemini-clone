@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Main.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
@@ -14,7 +14,7 @@ const Main = () => {
     input,
   } = useContext(Context);
 
-const year = new Date()
+  const year = new Date();
 
   return (
     <div className="main">
@@ -23,7 +23,7 @@ const year = new Date()
         <img src={assets.user_icon} alt="usericon" />
       </div>
       <div className="main-container">
-        {!showResult ? 
+        {!showResult ? (
           <>
             <div className="greet">
               <p>
@@ -50,27 +50,26 @@ const year = new Date()
               </div>
             </div>
           </>
-         : 
+        ) : (
           <div className="result">
-                <div className="result-title">
-                    <img src={assets.user_icon} alt="usericon" />
-                    <p>{recentPrompt}</p>
+            <div className="result-title">
+              <img src={assets.user_icon} alt="usericon" />
+              <p>{recentPrompt}</p>
+            </div>
+            <div className="result-data">
+              <img src={assets.gemini_icon} alt="gemini_icon" />
+              {loading ? (
+                <div className="loader">
+                  <hr />
+                  <hr />
+                  <hr />
                 </div>
-                <div className="result-data">
-                    <img src={assets.gemini_icon} alt="gemini_icon" />
-                    {loading?
-                    <div className="loader">
-                        <hr />
-                        <hr />
-                        <hr />
-                    </div>
-                   
-                    :
-                    <p dangerouslySetInnerHTML={{__html:resultData}}></p>
-                    }
-                </div>
+              ) : (
+                <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+              )}
+            </div>
           </div>
-        }
+        )}
 
         <div className="main-bottom">
           <div className="search-box">
@@ -82,12 +81,16 @@ const year = new Date()
             />
             <div>
               {/* <img src={assets.gallery_icon} alt="" /> */}
-              {input ? <img src={assets.mic_icon} alt="" />:null}
-              {input ? <img onClick={() => onSent()} src={assets.send_icon} alt="" /> : null}
+              {input ? <img src={assets.mic_icon} alt="" /> : null}
+              {input ? (
+                <img onClick={() => onSent()} src={assets.send_icon} alt="" />
+              ) : null}
             </div>
           </div>
           <p className="bottom-info">
-          © {year.getFullYear()}. All rights reserved by Hajai❤️️
+            <a href="https://hajai.vercel.app/">
+              © {year.getFullYear()}. All rights reserved by Hajai❤️️
+            </a>
           </p>
         </div>
       </div>
